@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
 
+    [SerializeField] private float MoveSpeed = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +22,14 @@ public class PlayerMovement : MonoBehaviour
        
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-        this.rb.velocity  = new Vector3(horizontal *1f,this.rb.velocity.y,vertical * 1f);
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        float horizontalSpeed = horizontal * MoveSpeed;
+        float verticalSpeed = vertical * MoveSpeed;
+        
+        rb.velocity  = new Vector3(horizontalSpeed,rb.velocity.y,verticalSpeed);
+        transform.forward = new Vector3(rb.velocity.x,0,rb.velocity.z);
+        if (rb.velocity.x != 0 || rb.velocity.z != 0)
         {
             animator.SetBool("isRunning", true);
-
         }
         else
         {
