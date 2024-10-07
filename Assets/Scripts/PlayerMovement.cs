@@ -5,13 +5,14 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller; // Componente para controlar o movimento do personagem
     private Transform myCamera; // Referência à transformação da câmera principal
     private Animator animator; // Componente para controlar as animações do personagem
-
+    private Vector3 initialPosition;
     // Inicialização de componentes
     private void Start()
     {
         controller = GetComponent<CharacterController>(); // Obtém o componente CharacterController do GameObject
         myCamera = Camera.main.transform; // Atribui a transformação da câmera principal
         animator = GetComponent<Animator>(); // Obtém o componente Animator do GameObject
+        initialPosition = transform.position; // Armazena a posição inicial do Player
     }
 
 
